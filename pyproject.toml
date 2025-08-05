@@ -1,0 +1,48 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.10",
+    "cmake>=3.22",
+    "ninja",
+    "wheel",
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "easyCuda"
+version = "0.0"
+description = "CUDA kernel library"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+keywords = ["cuda"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: Apache Software License",
+    "Environment :: GPU :: NVIDIA CUDA",
+    "Operating System :: POSIX :: Linux",
+]
+
+
+
+[tool.wheel]
+
+exclude = ["dist*", "tests*"]
+
+[tool.scikit-build]
+cmake.minimum-version = "3.22"
+cmake.build-type = "Release"
+cmake.verbose = true
+
+cmake.args = ["-DCMAKE_CUDA_ARCHITECTURES=89"]
+
+wheel.packages = ["easyCuda"]
+wheel.license-files = ["LICENSE"]
+
+sdist.include = [
+    "easyCuda/**/*",
+    "LICENSE",
+    "README.md",
+]
+
+install.components = ["Python"]

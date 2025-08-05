@@ -4,8 +4,11 @@ requires = [
     "cmake>=3.22",
     "ninja",
     "wheel",
+    # PyTorch构建时依赖 - 不指定CUDA版本标签，通过索引https://download.pytorch.org/whl/cuxxx获取GPU版本
+    "torch>=2.5.0",
 ]
 build-backend = "scikit_build_core.build"
+
 
 [project]
 name = "easyCuda"
@@ -22,16 +25,17 @@ classifiers = [
     "Environment :: GPU :: NVIDIA CUDA",
     "Operating System :: POSIX :: Linux",
 ]
-
+dependencies = [
+    "numpy>=1.20.0",
+]
 
 
 [tool.wheel]
-
 exclude = ["dist*", "tests*"]
+
 
 [tool.scikit-build]
 cmake.minimum-version = "3.22"
-cmake.build-type = "Release"
 cmake.verbose = true
 
 cmake.args = ["-DCMAKE_CUDA_ARCHITECTURES=89"]

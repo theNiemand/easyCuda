@@ -2,6 +2,21 @@ cmake_minimum_required(VERSION 3.22)
 project(easyCuda LANGUAGES CXX CUDA)
 
 # ==============================================================================
+# 编译命令数据库配置
+# ==============================================================================
+# 生成 compile_commands.json 文件，用于 IDE 和工具支持
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# 添加自定义目标，在构建后复制 compile_commands.json 到项目根目录
+add_custom_target(copy_compile_commands ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_BINARY_DIR}/compile_commands.json
+        ${CMAKE_SOURCE_DIR}/compile_commands.json
+    DEPENDS _C
+    COMMENT "Copying compile_commands.json to project root"
+)
+
+# ==============================================================================
 # 构建类型配置
 # ==============================================================================
 # 设置默认构建类型为Release（如果没有指定）
@@ -48,7 +63,7 @@ endif()
 
 
 if(NOT CMAKE_CUDA_ARCHITECTURES)
-    set(CMAKE_CUDA_ARCHITECTURES 89)
+    set(CMAKE_CUDA_ARCHITECTURES 90)
 endif()
 
 # ==============================================================================

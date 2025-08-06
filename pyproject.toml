@@ -38,7 +38,7 @@ exclude = ["dist*", "tests*"]
 cmake.minimum-version = "3.22"
 cmake.verbose = true
 
-cmake.args = ["-DCMAKE_CUDA_ARCHITECTURES=89"]
+cmake.args = ["-DCMAKE_CUDA_ARCHITECTURES=90"]
 
 wheel.packages = ["easyCuda"]
 wheel.license-files = ["LICENSE"]

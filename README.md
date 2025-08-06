@@ -1,6 +1,20 @@
 # easyCuda
 easy cuda kernels
 
+# 环境搭建
+
+```bash
+# 1. 创建新的conda环境
+conda create -n easyCuda python=3.11
+
+# 2. 激活环境
+conda activate easyCuda
+
+# 3. 安装clangd，用于CUDA代码补全和跳转
+conda install -c conda-forge clang-tools=14.0.6
+
+```
+
 # 构建说明
 
 ## 开发模式（当前环境构建）

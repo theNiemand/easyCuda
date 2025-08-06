@@ -1,0 +1,30 @@
+CompileFlags:
+  Remove:
+    - "-forward-unknown-to-host-compiler"
+    - "-gencode"
+    - "arch=compute_90,code=sm_90"
+    - "-Xcudafe"
+    - "--diag_suppress=*"
+    - "--expt-relaxed-constexpr"
+    - "--expt-extended-lambda"
+    - "-Xcompiler=*"
+    - "--threads=*"
+
+---
+If:
+  PathMatch: .*\.h$
+CompileFlags:
+  Add:
+    - "-x"
+    - "cuda"
+
+---
+If:
+  PathMatch: .*\.cu$
+CompileFlags:
+  Add:
+    - "-x"
+    - "cuda"
+    - "--cuda-path=/usr/local/cuda-12.4"
+    - "-I/usr/local/cuda-12.4/include"
+

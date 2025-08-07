@@ -27,4 +27,5 @@ CompileFlags:
     - "cuda"
     - "--cuda-path=/usr/local/cuda-12.4"
     - "-I/usr/local/cuda-12.4/include"
+    - "-I/mtc/wangtianpeng/project/easyCuda/third-party/cutlass/include"
 

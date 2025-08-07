@@ -115,6 +115,7 @@ if (NOT TARGET _C)
             ${TORCH_INCLUDE_DIRS}          # PyTorch头文件路径
             ${CUDAToolkit_INCLUDE_DIRS}    # CUDA工具包头文件路径
             ${PROJECT_SOURCE_DIR}/include  # 项目公共头文件目录
+            ${PROJECT_SOURCE_DIR}/third-party/cutlass/include # cutlass && cute头文件目录
             ${PROJECT_SOURCE_DIR}/csrc     # CUDA源码头文件目录
             ${PROJECT_SOURCE_DIR}/binds    # Python绑定头文件目录
     )

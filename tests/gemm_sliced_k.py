@@ -4,9 +4,9 @@ from easyCuda.kernel import gemm_sliced_k
 
 class gemmSlicedKTest(unittest.TestCase):
     def setUp(self):
-        self.M = [1024]
-        self.N = [1024]
-        self.K = [1024]
+        self.M = [1024, 1024 * 16]
+        self.N = [1024, 1024 * 16]
+        self.K = [1024, 1024 * 16]
         self.dtype = torch.bfloat16
         self.device = torch.device('cuda:0')
 

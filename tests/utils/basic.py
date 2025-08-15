@@ -6,9 +6,9 @@ def snr_error(pred: torch.Tensor, real: torch.Tensor) -> float:
     """
     Compute SNR(Singal Noise Ratio) error between pred and real.
 
-                    (ele_pred - ele_real) ^2          1
-    snr_error =  ——————————————————————————————— x ————————
-                        ele_real ^2                 numel
+                    ∑((ele_pred - ele_real) ^2)    
+    snr_error =  —————————————————————————————————
+                        ∑(ele_real ^2)         
 
     Args:
         pred: predicted tensor
@@ -16,9 +16,16 @@ def snr_error(pred: torch.Tensor, real: torch.Tensor) -> float:
 
     Returns: snr_error
     """
-    assert pred.shape == real.shape, "pred and real must have the same shape"
+    pred = torch.flatten(pred).float()
+    real = torch.flatten(real).float()
 
-    return torch.mean(torch.square(pred - real) / (torch.square(real) + 1e-7)).item()
+    if pred.shape != real.shape:
+        raise ValueError(f"Can not compute snr loss for tensors with different shape. ({pred.shape} and {real.shape})")
+
+    noise_power = torch.pow(pred - real, 2).sum(dim=-1)
+    signal_power = torch.pow(real, 2).sum(dim=-1)
+    snr = (noise_power) / (signal_power + 1e-7)
+    return snr.item()
 
 
 def benchmark(Op: Callable, shape: List, flop: int, *args, **kwargs):
@@ -37,8 +44,12 @@ def benchmark(Op: Callable, shape: List, flop: int, *args, **kwargs):
     total_time = 0
     times = 100
 
-    torch.cuda.synchronize()
+    # warm up
+    warmup_times = 10
+    for _ in range(warmup_times):
+        Op(*args, **kwargs)
 
+    torch.cuda.synchronize()
     for _ in range(times):
         start_time = time.perf_counter()
 

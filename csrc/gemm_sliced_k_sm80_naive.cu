@@ -1,4 +1,4 @@
-#include "gemm_sliced_k.h"
+#include "ops.h"
 #include "cute/tensor.hpp"
 
 template<typename T, int BLOCK_M, int BLOCK_N, int TileK, typename MMA>
@@ -51,7 +51,7 @@ __global__ void gemm_sliced_k_kernel(
 // sliced-k strategy
 // one block deal with one TileM * TileN sub-matrix in C
 // suitable for large M N, relatively small K
-torch::Tensor gemm_sliced_k(
+torch::Tensor gemm_sliced_k_sm80_naive(
     const torch::Tensor& A, // [M, K] activation
     const torch::Tensor& B  // [N, K] weight
     )

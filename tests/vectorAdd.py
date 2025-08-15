@@ -1,6 +1,6 @@
 import unittest
 import torch
-from easyCuda.kernel import vector_add
+from easyCuda.cuda_kernel import vector_add
 from utils.basic import snr_error, benchmark
 
 class vectorAddTest(unittest.TestCase):

@@ -7,6 +7,9 @@ project(easyCuda LANGUAGES CXX CUDA)
 # 生成 compile_commands.json 文件，用于 IDE 和工具支持
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# 确保构建目录在项目根目录下
+set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
+
 # 添加自定义目标，在构建后复制 compile_commands.json 到项目根目录
 add_custom_target(copy_compile_commands ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

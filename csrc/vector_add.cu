@@ -1,4 +1,4 @@
-#include "vector_add.h"
+#include "ops.h"
 
 template<int BLK, int TPB, int VPT>
 __global__ void vector_add_kernel(
